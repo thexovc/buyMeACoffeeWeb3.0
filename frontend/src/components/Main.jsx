@@ -60,7 +60,7 @@ function Main() {
         </div>
 
       </div>
-      <div className="md:w-1/3 w-full  border p-4 rounded-xl border-gray-400 ">
+      <div className="md:w-1/3 w-full  border md:p-4 p-2 rounded-xl border-gray-400 ">
         <Buy />
       </div>
     </div >

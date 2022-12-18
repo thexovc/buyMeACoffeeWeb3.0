@@ -4,7 +4,7 @@ import { FaEthereum } from 'react-icons/fa'
 const Buy = () => {
     return (
         <div className='w-full flex flex-col gap-3 items-center justify-center'>
-            <h1 className='text-2xl text-black font-semibold '>Buy <span className='text-gray-500'>Clean Water ...</span> a coffee</h1>
+            <h1 className='text-2xl text-black font-semibold text-center'>Buy <span className='text-gray-500'>Clean Water ...</span> a coffee</h1>
 
             <div className="flex text-xl justify-center items-center gap-10 px-4 w-full py-10 bg-[#FEF7F4] border-2 rounded-lg border-[#FFD2C4]">
                 <div className="text-4xl">☕</div>
