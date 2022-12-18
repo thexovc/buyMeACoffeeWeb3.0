@@ -6,13 +6,13 @@ const Buy = () => {
         <div className='w-full flex flex-col gap-3 items-center justify-center'>
             <h1 className='text-2xl text-black font-semibold text-center'>Buy <span className='text-gray-500'>Clean Water ...</span> a coffee</h1>
 
-            <div className="flex text-xl justify-center items-center gap-10 px-4 w-full py-10 bg-[#FEF7F4] border-2 rounded-lg border-[#FFD2C4]">
+            <div className="flex text-xl justify-center items-center md:gap-10 gap-5 px-4 w-full py-10 bg-[#FEF7F4] border-2 rounded-lg border-[#FFD2C4]">
                 <div className="text-4xl">☕</div>
                 <div className="text-gray-400 font-bold">x</div>
-                <div className="flex gap-3 md:text-xl">
-                    <div className="px-4 py-3 font-semibold  rounded-xl bg-[#FF6937] text-white">1</div>
-                    <div className="px-4 py-3 font-semibold  rounded-xl bg-[#FF6937] text-white">3</div>
-                    <div className="px-4 py-3 font-semibold  rounded-xl bg-[#FF6937] text-white">5</div>
+                <div className="flex md:gap-3 gap-1 md:text-xl text-sm">
+                    <div className="px-3 md:px-4 py-3 font-semibold  rounded-xl bg-[#FF6937] text-white">1</div>
+                    <div className="px-3 md:px-4 py-3 font-semibold  rounded-xl bg-[#FF6937] text-white">3</div>
+                    <div className="px-3 md:px-4 py-3 font-semibold  rounded-xl bg-[#FF6937] text-white">5</div>
                     <input type="text" placeholder='10' className='w-10 border-2 border-gray-300 text-center ' />
                 </div>
             </div>

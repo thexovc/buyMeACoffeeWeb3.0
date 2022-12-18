@@ -3,8 +3,7 @@ import React from 'react'
 const Dashboard = () => {
     return (
         <div className='w-full flex md:px-40 justify-center items-center px-2 mt-5'>
-            <div className='md:w-1/3 hidden md:flex'>sjs</div>
-            <div className='md:w-2/3 w-full bg-[#F9F8F8] md:px-4 px-1 flex text-xl flex-col'>
+            <div className='md:w-2/3 w-full bg-[#F9F8F8] md:px-4 px-1 rounded-xl flex text-xl flex-col'>
                 <div className="flex border-b-2 p-8">
                     <div className="image">
                         <img src="" alt="" />
