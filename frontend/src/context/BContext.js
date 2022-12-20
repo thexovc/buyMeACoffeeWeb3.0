@@ -8,6 +8,8 @@ export const BProvider = ({ children }) => {
 
   const [currentAccount, setCurrentAccount] = useState('')
   const [memos, setMemos] = useState();
+  const [open, setOpen] = useState(false)
+
 
   const coffeeAddress = "0xBb88351E3B23a225E13c79e63b0ba26B22f152bB"
 
@@ -67,11 +69,11 @@ export const BProvider = ({ children }) => {
     }
   };
 
-  useEffect(() => {
-    isWalletConnected();
-    getMemos();
+  // useEffect(() => {
+  //   isWalletConnected();
+  //   getMemos();
 
-  });
+  // }, []);
 
 
   return (
@@ -81,7 +83,10 @@ export const BProvider = ({ children }) => {
         connectWallet,
         coffeeAddress,
         abi,
-        memos
+        open,
+        setOpen,
+        memos,
+        getMemos
       }}
     >
       {children}

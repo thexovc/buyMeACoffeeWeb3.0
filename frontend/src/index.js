@@ -4,14 +4,20 @@ import './index.css';
 import App from './App';
 import { BrowserRouter } from "react-router-dom";
 import { BProvider } from './context/BContext';
+import { MoralisProvider } from "react-moralis"
+import { NotificationProvider } from "web3uikit"
 
 ReactDOM.render(
   <React.StrictMode>
-    <BProvider>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </BProvider>
+    <BrowserRouter>
+      <BProvider>
+        <MoralisProvider initializeOnMount={false}>
+          <NotificationProvider>
+            <App />
+          </NotificationProvider>
+        </MoralisProvider>
+      </BProvider>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );

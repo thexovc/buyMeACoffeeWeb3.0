@@ -2,15 +2,8 @@
 
 pragma solidity >=0.7.0 <0.9.0;
 
-
 contract BuyMeACoffee {
-
-    modifier onlyOwner {
-        require(msg.sender == owner, "You are not the owner");
-        _;
-    }
-
-    uint256 totalMemo;
+    uint256 public totalMemo;
 
     // emit an event when a memo is created
     event NewMemo(
@@ -21,7 +14,7 @@ contract BuyMeACoffee {
         string message
     );
 
-    // Memo struct 
+    // Memo struct
     struct Memo {
         address from;
         uint256 amount;
@@ -30,8 +23,23 @@ contract BuyMeACoffee {
         string message;
     }
 
+    struct profile {
+        string name;
+        address addr;
+        uint256 balance;
+        uint256 coffee;
+        uint256 supporters;
+        string[] link;
+        bool cond;
+    }
+
     // List of all memos recieved from friends
-    Memo [] memos;
+    mapping(address => Memo[]) public memos;
+
+    address[] public allCreators;
+
+    // mapping of creators
+    mapping(address => profile) public Creators;
 
     // Address of vontra
     address payable owner;
@@ -42,47 +50,62 @@ contract BuyMeACoffee {
     }
 
     /**
-    * @dev buy a coffee for contract owner
-    * @param _name name of the coffee buyer
-    * @param _message a nice message from the coffee buyer
-    */ 
-    function buyCoffee(string memory _name, string memory _message, uint256 _amount) public payable {
+     * @dev buy a coffee for contract owner
+     * @param _name name of the coffee buyer
+     * @param _message a nice message from the coffee buyer
+     */
+    function buyCoffee(
+        string memory _name,
+        string memory _message,
+        uint256 _amount,
+        address _addr
+    ) public payable {
         require(msg.value > 0, "can't buy coffee with 0 eth");
 
         totalMemo += _amount;
 
-        // Add memo to storage
-        memos.push(Memo (
-            msg.sender,
-            _amount,
-            block.timestamp,
-            _name,
-            _message
-        ));
+        Creators[_addr].balance += msg.value;
+        Creators[_addr].coffee += _amount;
+        Creators[_addr].supporters += 1;
 
-        // emit a log event when a new memo is created!
-        emit NewMemo(
-            msg.sender,
-            _amount,
-            block.timestamp,
-            _name,
-            _message
+        // Add memo to storage
+        memos[_addr].push(
+            Memo(msg.sender, _amount, block.timestamp, _name, _message)
         );
 
+        // emit a log event when a new memo is created!
+        emit NewMemo(msg.sender, _amount, block.timestamp, _name, _message);
     }
 
     /**
-    * @dev send the entire balance stored in this contract to the owner
-    */ 
-    function withdrawTips() public onlyOwner {
-        require(owner.send(address(this).balance));
+     * @dev make a user to become a creator
+     */
+    function beCreator(string memory _name, string[] memory _link) public {
+        if (Creators[msg.sender].cond == false) {
+            allCreators.push(msg.sender);
+        }
+
+        Creators[msg.sender].name = _name;
+        Creators[msg.sender].addr = msg.sender;
+        Creators[msg.sender].link = _link;
+        Creators[msg.sender].cond = true;
     }
 
     /**
-    * @dev retrieve all the memos received and stored on the blockchain 
-    */ 
-    function getMemos() public view returns(Memo[] memory) {
-        return memos;
+     * @dev send the entire balance stored in this contract to the owner
+     */
+    function withdrawTips() public {
+        require(
+            payable(msg.sender).send(Creators[msg.sender].balance),
+            "Your balance is zero   "
+        );
+        Creators[msg.sender].balance = 0;
     }
 
+    /**
+     * @dev retrieve all the memos received and stored on the blockchain
+     */
+    function getMemos(address _addr) public view returns (Memo[] memory) {
+        return memos[_addr];
+    }
 }
