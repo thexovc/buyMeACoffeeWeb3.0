@@ -6,7 +6,7 @@ import { useContext } from 'react';
 import { BContext } from '../context/BContext';
 import { ethers } from 'ethers';
 
-function Main() {
+function Profile() {
   const params = useParams();
   const addr = params.addr
 
@@ -15,13 +15,23 @@ function Main() {
 
 
   const updateUIValues = async () => {
+    try {
+      const addressArray = await window.ethereum.request({
+        method: 'eth_accounts',
+      })
 
-    const provider = new ethers.providers.Web3Provider(window.ethereum)
-    const coffeeContract = new ethers.Contract(coffeeAddress, abi, provider)
+      const provider = new ethers.providers.Web3Provider(window.ethereum)
+      const coffeeContract = new ethers.Contract(coffeeAddress, abi, provider)
 
-    const addrProfile = await coffeeContract.getCreators(addr)
-    console.log(addrProfile)
-    setProfile(addrProfile)
+      const addrProfile = await coffeeContract.getCreators(addressArray[0])
+      console.log(addrProfile)
+      setProfile(addrProfile)
+
+    } catch (err) {
+      console.log(err)
+
+      // window.location.href = '/'
+    }
 
   }
 
@@ -57,4 +67,4 @@ function Main() {
     </div >
   );
 }
-export default Main;
+export default Profile;

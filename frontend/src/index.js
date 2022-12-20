@@ -9,15 +9,15 @@ import { NotificationProvider } from "web3uikit"
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <BProvider>
-        <MoralisProvider initializeOnMount={false}>
+    <MoralisProvider initializeOnMount={false}>
+      <BrowserRouter>
+        <BProvider>
           <NotificationProvider>
             <App />
           </NotificationProvider>
-        </MoralisProvider>
-      </BProvider>
-    </BrowserRouter>
+        </BProvider>
+      </BrowserRouter>
+    </MoralisProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

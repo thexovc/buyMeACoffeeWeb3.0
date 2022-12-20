@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState } from 'react'
 import { abi } from '../constants'
 import { ethers } from 'ethers'
+import { useMoralis, useWeb3Contract } from "react-moralis"
 
 export const BContext = createContext()
 
@@ -9,31 +10,10 @@ export const BProvider = ({ children }) => {
   const [currentAccount, setCurrentAccount] = useState('')
   const [memos, setMemos] = useState();
   const [open, setOpen] = useState(false)
+  const [recent, setRecent] = useState()
 
 
-  const coffeeAddress = "0xBb88351E3B23a225E13c79e63b0ba26B22f152bB"
-
-
-  // Wallet connection logic
-  const isWalletConnected = async () => {
-    try {
-      const { ethereum } = window;
-
-      const accounts = await ethereum.request({ method: 'eth_accounts' })
-
-      console.log("accounts: ", accounts);
-
-      if (accounts.length > 0) {
-        const account = accounts[0];
-        setCurrentAccount(accounts[0])
-        console.log("wallet is connected! " + account);
-      } else {
-        console.log("make sure MetaMask is connected");
-      }
-    } catch (error) {
-      console.log("error: ", error);
-    }
-  }
+  const coffeeAddress = "0x42d9a3d9517db9A01eb9ca4387867076164D5A75"
 
   const connectWallet = async () => {
     try {
@@ -69,11 +49,41 @@ export const BProvider = ({ children }) => {
     }
   };
 
-  // useEffect(() => {
-  //   isWalletConnected();
-  //   getMemos();
 
-  // }, []);
+
+  // Get Top Creators
+
+  const updateUI = async () => {
+    try {
+      const provider = new ethers.providers.Web3Provider(window.ethereum)
+      const coffeeContract = new ethers.Contract(coffeeAddress, abi, provider)
+      const allCreators = await coffeeContract.getAllAddr()
+
+      let arr = []
+
+      for (let i = 0; i < allCreators.length; i++) {
+        let prof = await coffeeContract.getCreators(allCreators[i])
+        arr.push(prof)
+      }
+
+
+      if (arr.length > 0) {
+        setRecent(arr)
+      }
+
+      console.log("RECENT:", recent)
+    } catch (error) {
+      console.log(error)
+    }
+
+
+  }
+
+
+  // useEffect(() => {
+  //   updateUI()
+
+  // });
 
 
   return (
@@ -86,7 +96,9 @@ export const BProvider = ({ children }) => {
         open,
         setOpen,
         memos,
-        getMemos
+        getMemos,
+        recent,
+        updateUI
       }}
     >
       {children}

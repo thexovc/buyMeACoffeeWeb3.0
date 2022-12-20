@@ -5,7 +5,7 @@ import { useMoralis, useWeb3Contract } from "react-moralis"
 import { useNotification } from "web3uikit"
 import { BContext } from '../context/BContext'
 
-const Buy = () => {
+const Buy = ({ addr }) => {
     const dispatch = useNotification()
     const [name, setName] = useState("anon");
     const [message, setMessage] = useState("Enjoy your day!");
@@ -22,7 +22,8 @@ const Buy = () => {
         params: {
             _name: name,
             _message: message,
-            _amount: amount,
+            _amount: amount * 0.001,
+            _addr: addr
         },
     })
 
@@ -60,6 +61,7 @@ const Buy = () => {
             await buyCoffee({
                 onSuccess: handleSuccess,
                 onError: (error) => {
+                    handleErrorNotification(error)
                     console.log(error)
                 },
             })
@@ -105,7 +107,7 @@ const Buy = () => {
                 >
                 </textarea>
 
-                <button onClick={buyCoffeeFunc} className='bg-[#FF6937] flex justify-center gap-3 items-center w-full text-xl hover:bg-orange-600 font-semibold text-white p-4 rounded-xl'>
+                <button onClick={buyCoffeeFunc} className='bg-[#FF6937] flex justify-center gap-3 cursor-pointer items-center w-full text-xl hover:bg-orange-600 font-semibold text-white p-4 rounded-xl'>
                     Support   <span className='flex justify-center items-center'><FaEthereum />{0.001 * amount}</span>
                 </button>
             </div>

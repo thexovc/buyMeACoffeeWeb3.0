@@ -5,7 +5,7 @@ import { ConnectButton } from "web3uikit"
 import { BContext } from '../context/BContext'
 import pic from '../assets/images/pixx.webp'
 
-const Navbar = () => {
+const NavbarUser = () => {
     const { open, setOpen } = useContext(BContext)
 
 
@@ -30,6 +30,12 @@ const Navbar = () => {
 
                     {open && (
                         <div class="z-50 mt-20 pb-5 fixed top-1 right-10 text-base list-none bg-white divide-y divide-gray-100 rounded shadow border-2 px-4" id="user-dropdown">
+
+
+                            <Link to="/profile" class="block px-4 py-3 text-xl text-gray-700 hover:bg-gray-100  ">Profile</Link>
+
+
+                            <Link to="/dashboard" class="block px-4 py-3 text-xl text-gray-700 hover:bg-gray-100  ">Dashboard</Link>
 
 
                             <Link to="/search" class="block px-4 py-3 text-xl text-gray-700 hover:bg-gray-100  ">Search</Link>
@@ -62,4 +68,4 @@ const Navbar = () => {
     )
 }
 
-export default Navbar
+export default NavbarUser
