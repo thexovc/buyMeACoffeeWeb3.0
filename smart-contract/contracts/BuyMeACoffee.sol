@@ -108,4 +108,12 @@ contract BuyMeACoffee {
     function getMemos(address _addr) public view returns (Memo[] memory) {
         return memos[_addr];
     }
+
+    function getCreators(address addr) public view returns (profile memory) {
+        return Creators[addr];
+    }
+
+    function getAllAddr() public view returns (address[] memory) {
+        return allCreators;
+    }
 }
