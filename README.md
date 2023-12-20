@@ -61,7 +61,7 @@ BuyMeACoffeeWeb3.0 is a decentralized version of the popular "Buy Me a Coffee" c
 2. Start the Smart Contract:
 
    ```bash
-   npx hardhat --network localhost run scripts/deploy.js
+   yarn hardhat deploy --network goerli
    ```
 
 ## Contributing
