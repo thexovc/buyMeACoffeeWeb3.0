@@ -18,14 +18,12 @@ BuyMeACoffeeWeb3.0 is a decentralized version of the popular "Buy Me a Coffee" c
 
 - React: Front-end framework for building the user interface.
 - Solidity: Programming language for writing smart contracts on the Ethereum blockchain.
-- [Add other technologies used in your project]
 
 ## Getting Started
 
 ### Prerequisites
 
 - Node.js: Make sure Node.js is installed on your machine.
-- [Add any other prerequisites]
 
 ### Installation
 
